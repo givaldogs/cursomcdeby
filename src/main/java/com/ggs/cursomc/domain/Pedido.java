@@ -2,7 +2,9 @@ package com.ggs.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -27,12 +30,15 @@ public class Pedido implements Serializable {
 	private Pagamento pagamento;
 
 	@ManyToOne
-	@JoinColumn(name="cliente_id")
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
+
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemPedido> items = new HashSet<>();
 
 	public Pedido() {
 	}
@@ -85,6 +91,14 @@ public class Pedido implements Serializable {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 
+	public Set<ItemPedido> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<ItemPedido> items) {
+		this.items = items;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -102,5 +116,4 @@ public class Pedido implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
-	
 }
