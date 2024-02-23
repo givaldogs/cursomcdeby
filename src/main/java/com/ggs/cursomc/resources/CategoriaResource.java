@@ -19,6 +19,8 @@ import com.ggs.cursomc.domain.Categoria;
 import com.ggs.cursomc.dto.CategoriaDto;
 import com.ggs.cursomc.services.CategoriaService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/categorias")
 
@@ -36,7 +38,8 @@ public class CategoriaResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void>  insert(@RequestBody Categoria obj) {
+	public ResponseEntity<Void>  insert(@Valid @RequestBody CategoriaDto objDto) {
+		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -45,7 +48,8 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDto objDto, @PathVariable Integer id){
+		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
@@ -81,7 +85,4 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(listaDto);
 
 	}
-	
-	
-
 }
