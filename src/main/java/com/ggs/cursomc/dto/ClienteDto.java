@@ -4,33 +4,33 @@ import java.io.Serializable;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.ggs.cursomc.domain.Categoria;
+import com.ggs.cursomc.domain.Cliente;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
-public class CategoriaDto implements Serializable {
-
+public class ClienteDto implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	private Integer id;
 	
-	//@NotEmpty(message="Preenchimento Obrigatorio")
-	//@NotNull(message="Preenchimento Obrigatorio")
 	@NotEmpty(message="Preenchimento Obrigatorio")
-    @Length(min =5, max=80, message="O tamanho deve ser entre 5 a 80 caracteres")
+	@Length(min=5, max=120, message="O tamanho deve ser entre 5 a 120 caracteres")
 	private String nome;
-
-	public CategoriaDto() {
-
+	
+	@NotEmpty(message="Preenchimento Obrigatorio")
+	@Email(message="Email invalido")
+	private String email;
+	
+	public ClienteDto() {		
 	}
 
-	public CategoriaDto(Categoria obj) {
+	public ClienteDto(Cliente obj) {
 		this.id = obj.getId();
 		this.nome = obj.getNome();
-
+		this.email = obj.getEmail();
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -46,5 +46,15 @@ public class CategoriaDto implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 
 }
