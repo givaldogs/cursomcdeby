@@ -36,8 +36,9 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -55,15 +56,16 @@ public class CategoriaService {
 	}
 
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
-		PageRequest pageRequest = PageRequest.of(
-                page,
-                linesPerPage,
-                Direction.valueOf(direction),
-                orderBy);
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
 
-	public Categoria fromDTO(CategoriaDto objDto){
+	public Categoria fromDTO(CategoriaDto objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+
 	}
 }
