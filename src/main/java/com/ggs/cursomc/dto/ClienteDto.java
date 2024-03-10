@@ -5,10 +5,12 @@ import java.io.Serializable;
 import org.hibernate.validator.constraints.Length;
 
 import com.ggs.cursomc.domain.Cliente;
+import com.ggs.cursomc.services.validation.ClienteUpdate;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
+@ClienteUpdate
 public class ClienteDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
