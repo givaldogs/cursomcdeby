@@ -63,6 +63,7 @@ public class PedidoService {
 			ip.setDesconto(0.0);
 			//ip.setPreco(produtoRepository.findById(ip.getProduto().getId()).get().getPreco());
 			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
+			ip.setPedido(obj);
 		}
 
 		itemPedidoRepository.saveAll(obj.getItens());
