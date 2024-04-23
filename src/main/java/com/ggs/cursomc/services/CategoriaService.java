@@ -16,6 +16,8 @@ import com.ggs.cursomc.repositories.CategoriaRepository;
 import com.ggs.cursomc.services.exceptions.DataIntegrityException;
 import com.ggs.cursomc.services.exceptions.ObjectNotFoundException;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CategoriaService {
 
@@ -30,6 +32,7 @@ public class CategoriaService {
 
 	}
 
+	@Transactional
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return repo.save(obj);
